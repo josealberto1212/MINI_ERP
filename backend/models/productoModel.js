@@ -7,7 +7,7 @@ export const getProductos = async () => {
 };
 
 //crear un nuevo producto
-export const createProducto = async (producto) => {
+export const crearProducto = async (producto) => {
     const { codigo, nombre, existencia, precio, id_categoria } = producto;
     const resultado = await pool.query('INSERT INTO producto (codigo, nombre, existencia, precio, id_categoria) VALUES ($1, $2, $3, $4, $5) RETURNING *', [codigo, nombre, existencia, precio, id_categoria]);
     return resultado.rows[0];
