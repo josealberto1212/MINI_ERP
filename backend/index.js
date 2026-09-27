@@ -6,11 +6,13 @@ import clienteRoutes from "./routes/clienteRoutes.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
 import tipo_ncfRoutes from "./routes/tipo_ncfRoutes.js";
 import ventaRoutes from "./routes/ventaRoutes.js";
+import secuencia_ncfRoutes from "./routes/secuencia_ncfRoutes.js";
 
 const app = express();
 
 app.use(express.json());
 app.use("/categorias", categoriaRoutes);
+app.use("/secuencia_ncf", secuencia_ncfRoutes);
 app.use("/usuarios", usuarioRoutes);
 app.use("/productos", productoRoutes);
 app.use("/proveedores", proveedorRoutes);
