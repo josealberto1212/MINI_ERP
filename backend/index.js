@@ -14,6 +14,7 @@ import colorante_Routes from "./routes/colorante_Routes.js";
 import formula_Routes from "./routes/formula_Routes.js"
 import formula_color_colorante_Routes from "./routes/formula_color_colorante_Routes.js";
 import producto_proveedor_Routes from "./routes/producto_proveedor_Routes.js";
+import detalle_venta_Routes from "./routes/detalle_venta_Routes.js";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/colorante", colorante_Routes);
 app.use("/formula", formula_Routes);
 app.use("/formula_color_colorante", formula_color_colorante_Routes);
 app.use("/producto_proveedor", producto_proveedor_Routes);
+app.use("/detalle_venta", detalle_venta_Routes);
 
 app.get("/health", (req, res) => {
   res.send("Health check passed!");
