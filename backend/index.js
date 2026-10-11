@@ -8,6 +8,7 @@ import tipo_ncfRoutes from "./routes/tipo_ncfRoutes.js";
 import ventaRoutes from "./routes/ventaRoutes.js";
 import secuencia_ncfRoutes from "./routes/secuencia_ncfRoutes.js";
 import ventas_creditoRoutes from "./routes/ventas_creditoRoutes.js";
+import abonoRoutes from "./routes/abonoRoutes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/clientes", clienteRoutes);
 app.use("/tipo_ncf", tipo_ncfRoutes);
 app.use("/ventas", ventaRoutes);
 app.use("/ventas_credito", ventas_creditoRoutes);
+app.use("/abono", abonoRoutes);
 
 app.get("/health", (req, res) => {
   res.send("Health check passed!");
