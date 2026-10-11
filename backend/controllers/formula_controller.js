@@ -13,7 +13,7 @@ export const listarFormula = async(req,res) => {
 export const crearFormula = async(req,res) => {
    try{ 
         const nueva_formula = await crear_formula(req.body);
-        res.json(201).json(nueva_formula);
+        res.status(201).json(nueva_formula);
    }catch(error) {
         res.status(500).json({message: error.message});
    }

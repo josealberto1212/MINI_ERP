@@ -12,6 +12,7 @@ import abonoRoutes from "./routes/abonoRoutes.js";
 import base_pintura_Routes from "./routes/base_pintura_Routes.js";
 import colorante_Routes from "./routes/colorante_Routes.js";
 import formula_Routes from "./routes/formula_Routes.js"
+import formula_color_colorante_Routes from "./routes/formula_color_colorante_Routes.js";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/abono", abonoRoutes);
 app.use("/base_pintura", base_pintura_Routes);
 app.use("/colorante", colorante_Routes);
 app.use("/formula", formula_Routes);
+app.use("/formula_color_colorante", formula_color_colorante_Routes);
 
 app.get("/health", (req, res) => {
   res.send("Health check passed!");

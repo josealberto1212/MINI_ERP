@@ -5,7 +5,7 @@ export const listarColorante =  async(req, res) => {
         const colorante = await lista_colorante();
         res.json(colorante);
     }catch(error){
-        res.json(500).json({message: error.message});
+        res.status(500).json({message: error.message});
     }
 };
 
@@ -13,8 +13,8 @@ export const listarColorante =  async(req, res) => {
 export const crearColorante = async(req, res) => {
    try{
         const nuevo_color = await crear_colorante(req.body);
-        res.json(201).json(nuevo_color);
+        res.status(201).json(nuevo_color);
    } catch(error){
-        res.json(500).json({message: error.message});
+        res.status(500).json({message: error.message});
    }
 }
