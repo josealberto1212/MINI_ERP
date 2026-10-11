@@ -7,6 +7,7 @@ import usuarioRoutes from "./routes/usuarioRoutes.js";
 import tipo_ncfRoutes from "./routes/tipo_ncfRoutes.js";
 import ventaRoutes from "./routes/ventaRoutes.js";
 import secuencia_ncfRoutes from "./routes/secuencia_ncfRoutes.js";
+import ventas_creditoRoutes from "./routes/ventas_creditoRoutes.js";
 
 const app = express();
 
@@ -17,9 +18,9 @@ app.use("/usuarios", usuarioRoutes);
 app.use("/productos", productoRoutes);
 app.use("/proveedores", proveedorRoutes);
 app.use("/clientes", clienteRoutes);
-app.use("/usuarios", usuarioRoutes);
 app.use("/tipo_ncf", tipo_ncfRoutes);
 app.use("/ventas", ventaRoutes);
+app.use("/ventas_credito", ventas_creditoRoutes);
 
 app.get("/health", (req, res) => {
   res.send("Health check passed!");
