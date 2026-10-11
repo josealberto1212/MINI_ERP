@@ -9,6 +9,7 @@ import ventaRoutes from "./routes/ventaRoutes.js";
 import secuencia_ncfRoutes from "./routes/secuencia_ncfRoutes.js";
 import ventas_creditoRoutes from "./routes/ventas_creditoRoutes.js";
 import abonoRoutes from "./routes/abonoRoutes.js";
+import base_pintura_Router from "./routes/base_pintura_Routes.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/tipo_ncf", tipo_ncfRoutes);
 app.use("/ventas", ventaRoutes);
 app.use("/ventas_credito", ventas_creditoRoutes);
 app.use("/abono", abonoRoutes);
+app.use("/base_pintura", base_pintura_Router);
 
 app.get("/health", (req, res) => {
   res.send("Health check passed!");
