@@ -43,7 +43,6 @@ export const crear_detalle_venta = async(detalle) => {
         }
 
         const resultado = await pool.query("INSERT INTO detalle_venta (id_venta, id_producto, id_formula, cantidad, subtotal) VALUES ($1, $2, $3, $4, $5) RETURNING *",[id_venta, id_producto, id_formula, cantidad, subtotal]);
-        return resultado.rows[0];
 
         // sumar el subtotal al total de la venta
             await client.query(
