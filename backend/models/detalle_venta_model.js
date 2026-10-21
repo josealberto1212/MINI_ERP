@@ -56,6 +56,15 @@ export const crear_detalle_venta = async(detalle) => {
                 [id_venta]
             );
 
+            // actualizar el saldo pendiente en venta_credito si la venta es a crédito
+            await client.query(
+                `UPDATE venta_credito vc
+                SET saldo_pendiente = v.total - COALESCE((SELECT SUM(monto) FROM abono WHERE id_venta = vc.id_venta), 0)
+                    FROM venta v
+                WHERE v.id_venta = vc.id_venta AND vc.id_venta = $1`,
+                [id_venta]
+            );
+
         await client.query('COMMIT');
         return resultado.rows[0];
     } catch (error) {

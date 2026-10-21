@@ -15,10 +15,31 @@ export const getVentas = async () => {
 
 //crear una nueva venta
 export const crearVenta = async (venta) => {
-    const { ncf, es_credito, subtotal, itbis, total, id_cliente, id_usuario, id_tipo_ncf } = venta;
-    const resultado = await pool.query(
-        'INSERT INTO venta (ncf, es_credito, subtotal, itbis, total, id_cliente, id_usuario, id_tipo_ncf) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-        [ncf, es_credito, subtotal, itbis, total, id_cliente, id_usuario, id_tipo_ncf]
+    const { ncf, es_credito, id_cliente, id_usuario, id_tipo_ncf } = venta;
+ 
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+          
+         const resultado = await client.query(
+        'INSERT INTO venta (ncf, es_credito, id_cliente, id_usuario, id_tipo_ncf) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [ncf, es_credito, id_cliente, id_usuario, id_tipo_ncf]
     );
-    return resultado.rows[0];
+    const nuevaVenta = resultado.rows[0];
+
+    // Si la venta es a crédito, se crea un registro en la tabla venta_credito
+    if (nuevaVenta.es_credito) {
+        await client.query(
+            "INSERT INTO venta_credito (id_venta, saldo_pendiente, estado) VALUES ($1, 0, 'Pendiente')",
+            [nuevaVenta.id_venta]
+        );
+    }
+    await client.query('COMMIT');
+    return nuevaVenta;
+    } catch (error) {
+        await client.query('ROLLBACK');
+        throw error;
+    }finally {
+        client.release();
+    }
 };
