@@ -13,8 +13,7 @@ export const listarUsuarios = async (req, res) => {
 // crear un nuevo usuario
 export const crearUsuario = async (req, res) => {
     try {
-        const { usuario, rol } = req.body;
-        const nuevoUsuario = await crearUsuarioModel({ usuario, rol });
+        const nuevoUsuario = await crearUsuarioModel(req.body);
         res.status(201).json(nuevoUsuario);
     } catch (error) {
         res.status(500).json({ message: error.message });
