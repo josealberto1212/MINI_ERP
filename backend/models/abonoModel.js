@@ -9,8 +9,6 @@ export const listar_abono = async () =>  {
 }
 
 export const crear_abono = async (abono) => {
-
-    console.log('abono recibido en el modelo:', abono);
     const {id_venta , monto } = abono;
 
     // validaciones que no necesitan las base de datos

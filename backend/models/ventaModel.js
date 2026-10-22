@@ -1,4 +1,5 @@
 import pool from '../config/db.js';
+import { recalcular_venta, crear_detalle_venta } from './detalle_venta_model.js';
 
 //consulta de todas las ventas
 export const getVentas = async () => {
@@ -15,7 +16,11 @@ export const getVentas = async () => {
 
 //crear una nueva venta
 export const crearVenta = async (venta) => {
-    const { ncf, es_credito, id_cliente, id_usuario, id_tipo_ncf } = venta;
+    const { ncf, es_credito, id_cliente, id_usuario, id_tipo_ncf, items } = venta;
+
+    if (!Array.isArray(items) || items.length === 0) {
+        throw new Error('La venta debe incluir al menos un item');
+    }
  
     const client = await pool.connect();
     try {
@@ -34,8 +39,16 @@ export const crearVenta = async (venta) => {
             [nuevaVenta.id_venta]
         );
     }
+    const detalles = [];
+    for (const item of items) {
+        detalles.push(await crear_detalle_venta(client, nuevaVenta.id_venta, item));
+    }
+    await recalcular_venta(client, nuevaVenta.id_venta);
+
+    const final = await client.query(`SELECT * FROM venta WHERE id_venta = $1`, [nuevaVenta.id_venta]);
+
     await client.query('COMMIT');
-    return nuevaVenta;
+    return {...final.rows[0], detalles };
     } catch (error) {
         await client.query('ROLLBACK');
         throw error;
