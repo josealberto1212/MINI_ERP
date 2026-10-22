@@ -15,11 +15,13 @@ import formula_Routes from "./routes/formula_Routes.js"
 import formula_color_colorante_Routes from "./routes/formula_color_colorante_Routes.js";
 import producto_proveedor_Routes from "./routes/producto_proveedor_Routes.js";
 import detalle_venta_Routes from "./routes/detalle_venta_Routes.js";
+import login_routes from "./routes/login_routes.js";
 
 const app = express();
 
 app.use(express.json());
 app.use("/categorias", categoriaRoutes);
+app.use("/login", login_routes);
 app.use("/secuencia_ncf", secuencia_ncfRoutes);
 app.use("/usuarios", usuarioRoutes);
 app.use("/productos", productoRoutes);
