@@ -16,12 +16,21 @@ import formula_color_colorante_Routes from "./routes/formula_color_colorante_Rou
 import producto_proveedor_Routes from "./routes/producto_proveedor_Routes.js";
 import detalle_venta_Routes from "./routes/detalle_venta_Routes.js";
 import login_routes from "./routes/login_routes.js";
+import {verificarToken} from "./middlewares/auth.js";
 
 const app = express();
 
+
 app.use(express.json());
-app.use("/categorias", categoriaRoutes);
+
+app.get("/health", (req, res) => {
+  res.send("Health check passed!");
+});
 app.use("/login", login_routes);
+
+app.use(verificarToken);
+
+app.use("/categorias", categoriaRoutes);
 app.use("/secuencia_ncf", secuencia_ncfRoutes);
 app.use("/usuarios", usuarioRoutes);
 app.use("/productos", productoRoutes);
@@ -37,10 +46,6 @@ app.use("/formula", formula_Routes);
 app.use("/formula_color_colorante", formula_color_colorante_Routes);
 app.use("/producto_proveedor", producto_proveedor_Routes);
 app.use("/detalle_venta", detalle_venta_Routes);
-
-app.get("/health", (req, res) => {
-  res.send("Health check passed!");
-});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
